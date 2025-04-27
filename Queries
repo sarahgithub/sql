@@ -1,7 +1,15 @@
 Find the 3rd largest salary from a table (e.g., Employees)
 
+1) Using limit and offset
+
 select distinct salary from employee order by salary desc limit 1 offset 2;
 
    ORDER BY salary DESC: Sorts salaries from highest to lowest.
    OFFSET 2: Skips the top 2 salaries.
   LIMIT 1: Gets the 3rd one (i.e., the next after skipping 2).
+
+2) Using row_num()
+
+select salary from ( select salary, row_number() over (order by salary desc) from employees) as ranked where rn=3;
+
+
